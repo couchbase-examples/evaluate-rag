@@ -29,3 +29,7 @@ The code examples to evaluate RAG responses using [Ragas](https://ragas.io/) usi
   `python rag_evaluation.py`
 
 Note: For the RAG pipeline to work, you would need to ingest some documents to answer the questions related to Couchbase. You could do that based on the ingestion script in this [repo](https://github.com/couchbase-examples/qa-bot-demo).
+
+## Adding more Test Data
+
+The test data can be updated by adding more question & answer pairs to the list in the `create_dataset.py` file.
