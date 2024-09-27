@@ -4,10 +4,14 @@ The code examples to evaluate RAG responses using [Ragas](https://ragas.io/) usi
 
 > Note that you need Couchbase Server 7.6 or higher for Vector Search.
 
+A detailed tutorial for this demo can be found on the [Developer Portal](https://developer.couchbase.com/tutorial-evaluate-rag-responses-using-ragas)
+
 ## How to Run
 
 - Install the dependencies
+
   `pip install -r requirements.txt`
+
 - Set the environment variables
   Copy the .env.example file and rename it to .env and replace the placeholders with the actual values for your environment.
 
