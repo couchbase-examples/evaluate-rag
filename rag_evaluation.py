@@ -21,6 +21,8 @@ from ragas.metrics import (
     faithfulness,
     context_recall,
     context_precision,
+    answer_similarity,
+    answer_correctness,
 )
 from ragas import evaluate
 
@@ -70,7 +72,7 @@ def format_docs(docs):
 
 if __name__ == "__main__":
     # Load environment variables
-    load_dotenv(".env")
+    load_dotenv()
     DB_CONN_STR = os.getenv("DB_CONN_STR")
     DB_USERNAME = os.getenv("DB_USERNAME")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -128,6 +130,8 @@ if __name__ == "__main__":
         "retrieved_contexts": [],
     }
 
+    # Running the RAG pipeline on the dataset
+    print("Generating the answers using RAG pipeline")
     for question in tqdm(data["question"]):
         response = rag_chain.invoke({"input": question})
         data["answer"].append(response["answer"])
@@ -142,7 +146,6 @@ if __name__ == "__main__":
     # If you want to load the dataset from the CSV file
     # dataset = Dataset.from_csv("rag_results.csv")
     # dataset.rename_column("context", "retrieved_contexts")
-
     result = evaluate(
         dataset,
         metrics=[
@@ -150,6 +153,8 @@ if __name__ == "__main__":
             faithfulness,
             answer_relevancy,
             context_recall,
+            answer_similarity,
+            answer_correctness,
         ],
     )
 
