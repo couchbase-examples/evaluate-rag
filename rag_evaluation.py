@@ -4,7 +4,7 @@ from couchbase.options import ClusterOptions
 from datetime import timedelta
 
 
-from langchain_couchbase.vectorstores import CouchbaseVectorStore
+from langchain_couchbase.vectorstores import CouchbaseSearchVectorStore
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -37,6 +37,7 @@ def connect_to_couchbase(connection_string, db_username, db_password):
 
     auth = PasswordAuthenticator(db_username, db_password)
     options = ClusterOptions(auth)
+    options.apply_profile('wan_development')
     connect_string = connection_string
     cluster = Cluster(connect_string, options)
 
@@ -53,9 +54,9 @@ def get_vector_store(
     db_collection,
     _embedding,
     index_name,
-) -> CouchbaseVectorStore:
+) -> CouchbaseSearchVectorStore:
     """Return the Couchbase vector store"""
-    vector_store = CouchbaseVectorStore(
+    vector_store = CouchbaseSearchVectorStore(
         cluster=_cluster,
         bucket_name=db_bucket,
         scope_name=db_scope,
