@@ -37,6 +37,7 @@ def connect_to_couchbase(connection_string, db_username, db_password):
 
     auth = PasswordAuthenticator(db_username, db_password)
     options = ClusterOptions(auth)
+    options.apply_profile('wan_development')
     connect_string = connection_string
     cluster = Cluster(connect_string, options)
 
