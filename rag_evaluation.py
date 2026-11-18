@@ -7,8 +7,8 @@ from datetime import timedelta
 from langchain_couchbase.vectorstores import CouchbaseSearchVectorStore
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain
+from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+from langchain_classic.chains import create_retrieval_chain
 
 import os
 from dotenv import load_dotenv
@@ -157,6 +157,10 @@ if __name__ == "__main__":
             answer_similarity,
             answer_correctness,
         ],
+        # Ragas 0.4 needs the judge LLM and embeddings passed in explicitly;
+        # its built-in defaults do not work with the legacy metrics above.
+        llm=llm,
+        embeddings=embeddings,
     )
 
     df = result.to_pandas()
